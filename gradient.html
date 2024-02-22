@@ -1,27 +1,37 @@
 #include <stdio.h>
+#include <math.h>
 
 float gw1(float x1, float x2, float y, float w1, float w2)
 {
-
-    float weight1 = 2*(y -((w1*x1)+(w2*x2))*(-x1));
-    printf("%f\n",weight1);
-    return 0;
+    float ew1 = 2*(y -((w1*x1)+(w2*x2))*(-x1));
+    return ew1;
 }
 
 float gw2(float x1, float x2, float y, float w1, float w2)
 {
-
-    float weight2 = 2*(y -((w1*x1)+(w2*x2))*(-x2));
-    printf("%f\n",weight2);
-    return 0;
+    float ew2 = 2*(y -((w1*x1)+(w2*x2))*(-x2));
+    return ew2;
+}
+    
+float loss(float x1, float x2, float y, float w1, float w2){
+    float Error = (y-((w1*x1)+(w2*x2)));
+    float Err = pow(Error,2);
+    return Err;
 }
 
 int main() {
-    int w1 = 1, w2 = 7;
+    float w1 = 1, w2 = 7;
+    float ew1, ew2, err; 
     int arr[4][3] = {{0,1,1},{2,1,9},{1,0,1},{-2,1,7}};
+    
     for (int i=0; i<4;i++){
-    gw1(arr[i][0],arr[i][1],arr[i][2], w1,w2);
-    gw2(arr[i][0],arr[i][1],arr[i][2], w1,w2);
+    ew1 = gw1(arr[i][0],arr[i][1],arr[i][2], w1,w2);
+    ew2 = gw2(arr[i][0],arr[i][1],arr[i][2], w1,w2);
+    err = loss(arr[i][0],arr[i][1],arr[i][2], w1,w2);
+    printf("w1 = %f \n",ew1);
+    printf("w2 = %f \n",ew2);
+    printf("Loss= %f \n\n",err);     
     }
+    
     return 0;
 }
